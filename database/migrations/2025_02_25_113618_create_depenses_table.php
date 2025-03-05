@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->integer('price');
             $table->enum('type', ['ponctuelle', 'recurrentes']);
             $table->timestamps();
+            $table->integer('depense_date')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });

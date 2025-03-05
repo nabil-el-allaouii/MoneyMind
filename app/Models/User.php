@@ -24,6 +24,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'salaire',
+        'salaire_date',
+        'budget'
     ];
 
     /**
@@ -47,6 +50,18 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function reduceBudget($amount){
+        $this->budget -= $amount;
+        $this->save();
+    }
+
+    public function isAdmin(){
+        return $this->role == 'admin';
+    }
+    public function isClient(){
+        return $this->role == 'client';
     }
     public function depense(){
         return $this->hasMany(Depense::class);

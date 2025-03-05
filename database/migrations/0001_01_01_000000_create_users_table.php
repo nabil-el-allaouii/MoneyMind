@@ -20,7 +20,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->enum('role',['admin', 'client'])->default('client');
             $table->integer('salaire')->nullable();
-            $table->date('salaire_date')->nullable();
+            $table->integer('salaire_date')->nullable();
+            $table->integer('budget')->nullable();
             $table->timestamps();
         });
 

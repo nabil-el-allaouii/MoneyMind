@@ -8,6 +8,10 @@ use App\Models\User;
 
 class Category extends Model
 {
+    protected $fillable = [
+        'name',
+        'description'
+    ];
     public function depense(){
         return $this->hasMany(Depense::class);
     }

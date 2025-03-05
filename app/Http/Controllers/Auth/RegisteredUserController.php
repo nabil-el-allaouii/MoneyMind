@@ -33,17 +33,27 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'monthly_salary' => ['required', 'integer'],
+            'salary_date' => ['required','integer'],
+            'current_budget' => ['required' , 'integer']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'salaire' =>$request->input('monthly_salary'),
+            'salaire_date' => $request->input('salary_date'),
+            'budget' => $request->input('current_budget')
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
+        if($user->isAdmin()){
+            return redirect()->route('admin');
+            exit;
+        }
 
         return redirect(route('dashboard', absolute: false));
     }

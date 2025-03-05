@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('target_amount');
-            $table->integer('current_amount');
+            $table->integer('current_amount')->nullable();
             $table->integer('monthly_contribution');
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
