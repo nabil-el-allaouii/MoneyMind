@@ -65,10 +65,10 @@
                                 <span class="ml-2 text-sm font-medium">Wishlist</span>
                             </a>
 
-                            <a href="#"
+                            <a href="/alerts"
                                 class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-800/50 rounded-xl transition-all duration-300">
                                 <i class="fas fa-credit-card w-4 h-4"></i>
-                                <span class="ml-2 text-sm font-medium">Cards</span>
+                                <span class="ml-2 text-sm font-medium">Alerts</span>
                             </a>
                         </div>
                     </div>

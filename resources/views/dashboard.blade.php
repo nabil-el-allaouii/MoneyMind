@@ -144,10 +144,7 @@
                         </div>
                         <div class="space-y-4">
                             <div class="p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-                                <p class="text-gray-300"><span class="text-cyan-400 font-medium">Tip:</span> Based on your spending, you could save 200 DH by reducing entertainment expenses.</p>
-                            </div>
-                            <div class="p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-                                <p class="text-gray-300"><span class="text-emerald-400 font-medium">Goal:</span> You're on track to reach your savings goal by next month!</p>
+                                <p class="text-gray-300"><span class="text-cyan-400 font-medium">Tip:</span> {{$AiAdvice}}</p>
                             </div>
                         </div>
                     </div>

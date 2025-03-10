@@ -30,6 +30,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = User::find(Auth::id());
+        $user->last_logged_in = now();
+        $user->save();
         if($user->isAdmin()){
             return redirect()->route('admin');
             exit;

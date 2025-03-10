@@ -3,12 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Alert;
+use App\Models\Saving;
+use App\Models\Depense;
+use App\Models\Wishlist;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use App\Models\Depense;
-use App\Models\Saving;
-use App\Models\Wishlist;
 
 class User extends Authenticatable
 {
@@ -74,5 +75,8 @@ class User extends Authenticatable
     }
     public function notification(){
         return $this->hasMany(Notification::class);
+    }
+    public function alert(){
+        return $this->hasMany(Alert::class);
     }
 }

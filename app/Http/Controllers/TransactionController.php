@@ -17,9 +17,9 @@ class TransactionController extends Controller
     {
         $userID = Auth::id();
         $categories = Category::all();
-        $depenses = Depense::where('user_id',$userID)->with('category')->get();
-        $total = Depense::where('user_id' , $userID)->selectRaw('SUM(price) as total')->value('total');
-        return view('transactions', compact('categories', 'depenses' , 'total'));
+        $depenses = Depense::where('user_id', $userID)->with('category')->get();
+        $total = Depense::where('user_id', $userID)->selectRaw('SUM(price) as total')->value('total');
+        return view('transactions', compact('categories', 'depenses', 'total'));
     }
 
     /**
@@ -28,13 +28,24 @@ class TransactionController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'transaction_type' => ['required' , 'string'],
-            'amount' => ['required' , 'integer'],
-            'category' => ['required' , 'integer'],
-            'date' => ['nullable' , 'integer'],
+            'transaction_type' => ['required', 'string'],
+            'amount' => ['required', 'integer'],
+            'category' => ['required', 'integer'],
+            'date' => ['nullable', 'integer'],
         ]);
-        $user = User::find(Auth::id());
-        if($request->transaction_type === 'ponctuelle'){
+        $user = User::with('alert')->find(Auth::id());
+        $global = [];
+        foreach ($user->alert as $alert) {
+            $global[] = $alert;
+        }
+        $percentage = ($request->amount / $user->budget) * 100;
+        if ($global) {
+            if ($percentage > $global[0]->percentage) {
+                logger("You are Trying to Add an expense that would Reduce More than {$global[0]->percentage}%");
+                return redirect()->back()->with('error', 'Expense Exceeds your set alert limit');
+            }
+        }
+        if ($request->transaction_type === 'ponctuelle') {
             $user->reduceBudget($request->input('amount'));
         }
         Depense::create([
@@ -42,18 +53,16 @@ class TransactionController extends Controller
             'type' => $request->input('transaction_type'),
             'depense_date' => $request->input('date'),
             'user_id' => Auth::id(),
-            'category_id' => $request->input('category') 
+            'category_id' => $request->input('category')
         ]);
+
         return redirect()->back();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.

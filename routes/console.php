@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\BudgetCheck;
 use App\Console\Commands\BudgetUpdate;
 use App\Console\Commands\Savings;
 use App\Console\Commands\Subscription;
@@ -14,5 +15,6 @@ Artisan::command('inspire', function () {
 
 Schedule::command(Subscription::class)->daily();
 Schedule::command(BudgetUpdate::class)->daily();
-Schedule::command(Savings::class)->everySecond();
+Schedule::command(Savings::class)->daily();
 Schedule::command(WishlistUpdate::class)->daily();
+Schedule::command(BudgetCheck::class)->daily();
